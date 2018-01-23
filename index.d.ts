@@ -1,11 +1,13 @@
 
 export as namespace ipfs;
 
+import { EventEmitter } from "events"
+
 export = IPFS;
 
 type Callback<T> = (error: Error, result?: T) => void;
 
-declare class IPFS {
+declare class IPFS extends EventEmitter {
     constructor(options: IPFS.Options);
 
     types: IPFS.Types;
@@ -18,15 +20,15 @@ declare class IPFS {
     stop(callback?: (error?: Error) => void): void;
     isOnline(): boolean;
 
-    version(options: any, callback: (error: Error, version: IPFS.Version) => void): void ;
+    version(options: any, callback: (error: Error, version: IPFS.Version) => void): void;
     version(options: any): Promise<IPFS.Version>;
-    version(callback: (error: Error, version: IPFS.Version) => void): void ;
-    version(): Promise<IPFS.Version>; 
+    version(callback: (error: Error, version: IPFS.Version) => void): void;
+    version(): Promise<IPFS.Version>;
 
-    id(options: any, callback: (error: Error, version: IPFS.Id) => void): void ;
+    id(options: any, callback: (error: Error, version: IPFS.Id) => void): void;
     id(options: any): Promise<IPFS.Id>;
-    id(callback: (error: Error, version: IPFS.Id) => void): void ;
-    id(): Promise<IPFS.Id>; 
+    id(callback: (error: Error, version: IPFS.Id) => void): void;
+    id(): Promise<IPFS.Id>;
 
     repo: IPFS.RepoAPI;
     bootstrap: any;
@@ -42,9 +44,7 @@ declare class IPFS {
     ping(callback: (error: Error) => void): void;
     ping(): Promise<void>;
 
-    pubsub: any; 
-
-    on(event: string, callback: () => void): void;
+    pubsub: any;
 }
 
 declare namespace IPFS {
@@ -157,7 +157,7 @@ declare namespace IPFS {
         peers(callback: Callback<Peer[]>): void;
         peers(): Promise<Peer[]>;
 
-        addrs(callback: Callback<PeerInfo[]>) : void;
+        addrs(callback: Callback<PeerInfo[]>): void;
         addrs(): Promise<PeerInfo[]>;
 
         localAddrs(callback: Callback<Multiaddr[]>): void;
